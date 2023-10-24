@@ -18,9 +18,14 @@ const Gameboard = () => {
     } 
   }
 
+  const placeShip = ( x, y, type) => {
+    
+  }
+
   const receiveAttack = ( x, y) => {
 
   }
+
 
   return { board, receiveAttack }
 }
