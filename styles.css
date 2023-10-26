@@ -1,0 +1,14 @@
+.main-title {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.player-board {
+  width: 20px;
+  height: 20px;
+  border: 1px solid;
+}
+
+.player-board:hover {
+  background-color: #dddddd;
+}
