@@ -3,12 +3,18 @@
   text-align: center;
 }
 
-.player-board {
-  width: 20px;
-  height: 20px;
-  border: 1px solid;
+.player-container{
+  width: 250px;
+  display: grid;
+  grid-template: repeat(10, 1fr) / repeat(10, 1fr);
 }
 
-.player-board:hover {
-  background-color: #dddddd;
+.player-board {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+}
+
+.ship-carrier {
+  width: 150px;
 }
