@@ -17,10 +17,13 @@ function boardRender(container, className, id) {
 function playerController () {
   const playerContainer = document.querySelector('.player-container');
   let shipLength = 0;
+  let verticalAxis = false;
 
   const addDragShip = (className, length) => {
     const ship = document.querySelector(className);
+    const axis = document.getElementById('axis-y');
     ship.addEventListener('dragstart', (e) => {
+      verticalAxis = axis.checked;
       shipLength = length;
       e.dataTransfer.setData('id', e.target.id);
       e.target.classList.toggle('hide');
@@ -36,11 +39,17 @@ function playerController () {
     let cellColor = color;
   
     if (!erase) {
-      if (parseInt(cellY)+shipLength > 10) cellColor = 'red';
+      if (verticalAxis) { 
+        if (parseInt(cellX)+shipLength > 10) cellColor = 'red';
+      } else {
+        if (parseInt(cellY)+shipLength > 10) cellColor = 'red';
+      }
     }
   
+    let neighborId = '';
     for (let i = 0; i < shipLength; i++) {
-      const neighborId = 'p'+cellX+(parseInt(cellY)+parseInt(i));
+      if (verticalAxis) neighborId = 'p'+(parseInt(cellX)+parseInt(i))+cellY 
+      else neighborId = 'p'+cellX+(parseInt(cellY)+parseInt(i));
       const neighbor = document.getElementById(neighborId);
       if (neighbor !== null)
       neighbor.style.backgroundColor = cellColor;
@@ -61,9 +70,17 @@ function playerController () {
     const cellX = cell.dataset.x;
     const cellY = cell.dataset.y;
     cellColor(cell, 'white', shipLength, true);
-    if (parseInt(cellY)+shipLength > 10) return;
-    
+
     const ship = document.getElementById(e.dataTransfer.getData('id'));
+    if (verticalAxis) {
+      if (parseInt(cellX)+shipLength > 10) return;
+      ship.style.transformOrigin = '10% 70%';
+      ship.style.transform = 'rotate(90deg)';
+    } else {
+      if (parseInt(cellY)+shipLength > 10) return;
+      ship.style.transformOrigin = '';
+      ship.style.transform = '';
+    }
     cell.appendChild(ship); 
   })
   

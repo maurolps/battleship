@@ -4,7 +4,7 @@
 }
 
 .player-container{
-  width: 250px;
+  width: 320px;
   display: grid;
   grid-template: repeat(10, 1fr) / repeat(10, 1fr);
   gap: 0px;
@@ -17,6 +17,11 @@
   border: 1px solid lightgray;
 }
 
+.ships-container {
+  position: relative;
+  width: 200px;
+}
+
 .ship-carrier {
   cursor: pointer;
   width: 160px;
@@ -25,4 +30,99 @@
   opacity: 60%;
   bottom: 5%;
   z-index: 10;
+}
+
+.ship-battleship {
+  cursor: pointer;
+  width: 130px;
+  height: 30px;
+  position: absolute;
+  opacity: 60%;
+  bottom: 5%;
+  z-index: 10;
+}
+
+.ship-destroyer {
+  cursor: pointer;
+  width: 100px;
+  height: 30px;
+  position: absolute;
+  opacity: 60%;
+  bottom: 5%;
+  z-index: 10;
+}
+
+.ship-submarine {
+  cursor: pointer;
+  width: 100px;
+  height: 30px;
+  position: absolute;
+  opacity: 60%;
+  bottom: 5%;
+  z-index: 10;
+}
+
+.ship-patrol {
+  cursor: pointer;
+  width: 70px;
+  height: 30px;
+  position: absolute;
+  opacity: 60%;
+  bottom: 5%;
+  z-index: 10;
+}
+
+
+.hide {
+  opacity: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: start;
+}
+
+.main-container {
+  place-content: center;
+  display: flex;
+}
+
+.field {
+  background-color: rgb(248, 248, 248);
+  position: relative;
+  border-radius: 5px;
+  border-width: 1px;
+  color: rgb(134, 134, 134);
+  margin: 10px;
+  margin-top: -7px;
+  height: 40px;
+}
+
+.field-legend {
+  font-size: 0.8rem;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.orientation {
+  padding-top: 5px;
+  margin-left: -10px;
+  font-size: 0.8rem;
+}
+
+.radio input {
+  
+  border-color: gray;
+  color: red;
+  background-color: red;
+}
+
+.orientation button {
+  background-color: #f8f8f8;
+  color: gray;
+  cursor: pointer;
+  border: 1px solid gray;
+  border-radius: 5px;
 }
