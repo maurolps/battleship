@@ -81,7 +81,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  align-items: start;
+  align-items: center;
 }
 
 .main-container {
@@ -90,11 +90,11 @@
 }
 
 .field {
-  background-color: rgb(248, 248, 248);
+  background-color: #f8f8f8;
   position: relative;
   border-radius: 5px;
   border-width: 1px;
-  color: rgb(134, 134, 134);
+  color: #868686;
   margin: 10px;
   margin-top: -7px;
   height: 40px;
@@ -107,22 +107,23 @@
 }
 
 .orientation {
+  display: flex;
+  justify-content: center;
   padding-top: 5px;
-  margin-left: -10px;
   font-size: 0.8rem;
+  width: 200px;
 }
 
-.radio input {
-  
-  border-color: gray;
-  color: red;
-  background-color: red;
+.status-message {
+ background-color: #f8f8f8;
+ color: #868686;
+ width: 100%;
+ display: flex;
+ justify-content: center;
+ gap: 10px;
+ border: 1px solid #868686;
+ padding-top: 5px;
+ padding-bottom: 5px;
+
 }
 
-.orientation button {
-  background-color: #f8f8f8;
-  color: gray;
-  cursor: pointer;
-  border: 1px solid gray;
-  border-radius: 5px;
-}

@@ -12,7 +12,20 @@ function boardRender(container, className, id) {
   }
 }
 
+function shipsReady () {
+  const shipField = document.querySelectorAll('.field-ship');
+  const prepareCounter = document.getElementById('prepare-counter');
+  const statusMessage = document.querySelector('.status-message');
 
+  let shipsReady = 0;
+  shipField.forEach((field) => {
+    if (field.firstChild == null) shipsReady += 1;
+  }) 
+  prepareCounter.textContent = `${shipsReady}/5`;
+  if (shipsReady > 4) {
+    statusMessage.innerHTML = 'Entering battle...';
+  }
+}
 
 function playerController () {
   const playerContainer = document.querySelector('.player-container');
@@ -82,6 +95,7 @@ function playerController () {
       ship.style.transform = '';
     }
     cell.appendChild(ship); 
+    shipsReady();
   })
   
   

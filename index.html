@@ -13,28 +13,24 @@
       <div class="ships-container">
         <fieldset class="field">
           <legend class="field-legend">Carrier</legend>
-          <img id="carrier" src="./assets/carrier.png" draggable="true" class="ship-carrier">
+          <div class="field-ship"><img id="carrier" src="./assets/carrier.png" draggable="true" class="ship-carrier"></div>
         </fieldset>
         <fieldset class="field">
           <legend class="field-legend">Battleship</legend>
-          <img id="battleship" src="./assets/battleship.png" draggable="true" class="ship-battleship">
+          <div class="field-ship"><img id="battleship" src="./assets/battleship.png" draggable="true" class="ship-battleship"></div>
         </fieldset>
         <fieldset class="field">
           <legend class="field-legend">Destroyer</legend>
-          <img id="destroyer" src="./assets/destroyer.png" draggable="true" class="ship-destroyer">
+          <div class="field-ship"><img id="destroyer" src="./assets/destroyer.png" draggable="true" class="ship-destroyer"></div>
         </fieldset>
         <fieldset class="field">
           <legend class="field-legend">Submarine</legend>
-          <img id="submarine" src="./assets/submarine.png" draggable="true" class="ship-submarine">
+          <div class="field-ship"><img id="submarine" src="./assets/submarine.png" draggable="true" class="ship-submarine"></div>
         </fieldset>
         <fieldset class="field">
           <legend class="field-legend">Patrol Boat</legend>
-          <img id="patrol" src="./assets/patrol-boat.png" draggable="true" class="ship-patrol">
+          <div class="field-ship"><img id="patrol" src="./assets/patrol-boat.png" draggable="true" class="ship-patrol"></div>
         </fieldset>
-      </div>
-      <div class="wrapper">
-        <div class="player-container">
-        </div>
         <div class="orientation">
           <fieldset class="field">
             <legend class="field-legend">Axis</legend>
@@ -46,6 +42,11 @@
             </div>
           </fieldset>
         </div>
+      </div>
+      <div class="wrapper">
+        <div class="player-container">
+        </div>
+        <div class="status-message">Prepare your Ships <span id="prepare-counter">0/5</span></div>
       </div>
     </div>
 </body>
