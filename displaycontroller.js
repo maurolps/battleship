@@ -12,10 +12,24 @@ function boardRender(container, className, id) {
   }
 }
 
+function startBattle (statusContainer) {
+  const shipsContainer = document.querySelector('.ships-container');
+  const computerContainer = document.querySelector('.computer-container');
+  const wrapper = document.querySelector('.wrapper');
+
+  computerContainer.style.display = 'grid';
+  shipsContainer.style.display = 'none';
+  wrapper.style['flex-direction'] = 'row';
+  wrapper.style.gap = '50px';
+
+  boardRender(computerContainer, 'computer-board', 'c');
+  statusContainer.innerHTML = 'Ready to fire!';
+}
+
 function shipsReady () {
   const shipField = document.querySelectorAll('.field-ship');
   const prepareCounter = document.getElementById('prepare-counter');
-  const statusMessage = document.querySelector('.status-message');
+  const statusContainer = document.querySelector('.status-message');
 
   let shipsReady = 0;
   shipField.forEach((field) => {
@@ -23,7 +37,10 @@ function shipsReady () {
   }) 
   prepareCounter.textContent = `${shipsReady}/5`;
   if (shipsReady > 4) {
-    statusMessage.innerHTML = 'Entering battle...';
+    statusContainer.innerHTML = 'Entering battle...';
+    setTimeout(() => {
+      startBattle(statusContainer);
+    }, 1000);
   }
 }
 
