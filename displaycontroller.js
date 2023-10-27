@@ -1,4 +1,5 @@
 const playerContainer = document.querySelector('.player-container');
+const shipCarrier = document.querySelector('.ship-carrier');
 
 for (let i = 0; i < 10; i++) {
   for (let j = 0; j < 10; j++) {
@@ -11,20 +12,19 @@ for (let i = 0; i < 10; i++) {
   }    
 }
 
-playerContainer.addEventListener('dragover', (e) => {
-  e.preventDefault();
+shipCarrier.addEventListener('dragstart', (e) => {
+  e.dataTransfer.setData('text', e.target.id);
 })
 
-playerContainer.addEventListener('dragover', (e) => {
-  e.preventDefault();
-  const cell = e.target;
+const cellColor = (cell, color, shipLength, erase = false) => {
   const cellX = cell.dataset.x;
   const cellY = cell.dataset.y;
-  const shipLength = 5;
-  let cellColor = 'gray';
+  let cellColor = color;
 
-  if (parseInt(cellY)+shipLength > 10) cellColor = 'red';
-    
+  if (!erase) {
+    if (parseInt(cellY)+shipLength > 10) cellColor = 'red';
+  }
+
   for (let i = 0; i < shipLength; i++) {
     const neighborId = 'p'+cellX+(parseInt(cellY)+parseInt(i));
     const neighbor = document.getElementById(neighborId);
@@ -33,26 +33,35 @@ playerContainer.addEventListener('dragover', (e) => {
   }
   cell.style.backgroundColor = cellColor;
 
+}
+
+playerContainer.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  const cell = e.target;
+  const shipLength = 5;
+  cellColor(cell, '#eeeeee', shipLength);
 })
 
 playerContainer.addEventListener('drop', (e) => {
-  console.log('ondrop: ', e.target.id);
+  e.preventDefault();
+  const cell = e.target;
+  const cellX = cell.dataset.x;
+  const cellY = cell.dataset.y;
+  const shipLength = 5;
+  cellColor(cell, 'white', shipLength, true);
+  if (parseInt(cellY)+shipLength > 10) return;
+  
+  const ship = document.getElementById(e.dataTransfer.getData('text'));
+  cell.appendChild(ship); 
 })
 
 
 playerContainer.addEventListener('dragleave', (e) => {
   e.preventDefault();
   const cell = e.target;
-  console.log(cell.id);
   const shipLength = 5;
-    
-    for (let i = 0; i < shipLength; i++) {
-      const neighborId = 'p'+cell.dataset.x+(parseInt(cell.dataset.y)+i);
-      const neighbor = document.getElementById(neighborId);
-      if (neighbor !== null)
-      neighbor.style.backgroundColor = 'white';
-    }
-    cell.style.backgroundColor = 'white';
+  cellColor(cell, 'white', shipLength, true);
+
 })
 
 
