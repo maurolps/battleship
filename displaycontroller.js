@@ -38,9 +38,10 @@ function shipsReady () {
   prepareCounter.textContent = `${shipsReady}/5`;
   if (shipsReady > 4) {
     statusContainer.innerHTML = 'Entering battle...';
+    statusContainer.style.backgroundColor = '#f4f7f4';
     setTimeout(() => {
       startBattle(statusContainer);
-    }, 1000);
+    }, 2000);
   }
 }
 
@@ -53,6 +54,9 @@ function playerController () {
     const ship = document.querySelector(className);
     const axis = document.getElementById('axis-y');
     ship.addEventListener('dragstart', (e) => {
+      const parentElement = ship.parentNode;
+      if (parentElement.className !== 'field-ship') cellColor(parentElement, 'white', length, true);
+
       verticalAxis = axis.checked;
       shipLength = length;
       e.dataTransfer.setData('id', e.target.id);
@@ -70,9 +74,9 @@ function playerController () {
   
     if (!erase) {
       if (verticalAxis) { 
-        if (parseInt(cellX)+shipLength > 10) cellColor = 'red';
+        if (parseInt(cellX)+shipLength > 10) cellColor = '#f0cccc';
       } else {
-        if (parseInt(cellY)+shipLength > 10) cellColor = 'red';
+        if (parseInt(cellY)+shipLength > 10) cellColor = '#f0cccc';
       }
     }
   
@@ -91,7 +95,7 @@ function playerController () {
   playerContainer.addEventListener('dragover', (e) => {
     e.preventDefault();
     const cell = e.target;
-    cellColor(cell, '#eeeeee', shipLength);
+    cellColor(cell, '#f4f7f4', shipLength);
   })
   
   playerContainer.addEventListener('drop', (e) => {
@@ -99,15 +103,20 @@ function playerController () {
     const cell = e.target;
     const cellX = cell.dataset.x;
     const cellY = cell.dataset.y;
-    cellColor(cell, 'white', shipLength, true);
 
     const ship = document.getElementById(e.dataTransfer.getData('id'));
     if (verticalAxis) {
-      if (parseInt(cellX)+shipLength > 10) return;
+      if (parseInt(cellX)+shipLength > 10) {
+        cellColor(cell, 'white', shipLength, true);
+        return;
+      };
       ship.style.transformOrigin = '10% 70%';
       ship.style.transform = 'rotate(90deg)';
     } else {
-      if (parseInt(cellY)+shipLength > 10) return;
+      if (parseInt(cellY)+shipLength > 10) {
+        cellColor(cell, 'white', shipLength, true);
+        return;
+      };
       ship.style.transformOrigin = '';
       ship.style.transform = '';
     }
