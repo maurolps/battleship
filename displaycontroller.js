@@ -3,12 +3,27 @@ function boardRender(container, className, id) {
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
       const boardSquare = document.createElement('div');
+      const roundDot = document.createElement('div');
+
+      roundDot.className = 'round-dot';
+      roundDot.classList.add('hide');
+      roundDot.id = id+'dot'+i+j;
       boardSquare.className = className;
       boardSquare.id = id+i+j;
       boardSquare.dataset.x = i;
       boardSquare.dataset.y = j;
+      boardSquare.appendChild(roundDot);
       container.appendChild(boardSquare);
     }    
+  }
+  if (className === 'computer-board')  {
+    container.addEventListener('click', (e) => {
+      const cellX = e.target.dataset.x;
+      const cellY = e.target.dataset.y;
+      const roundDot = document.getElementById(id+'dot'+cellX+cellY);
+      if (roundDot !== null)
+      roundDot.classList.toggle('hide');
+    })
   }
 }
 
@@ -100,6 +115,7 @@ function playerController () {
   playerContainer.addEventListener('dragover', (e) => {
     e.preventDefault();
     const cell = e.target;
+    if (cell.className !== 'round-dot')
     cellColor(cell, '#f4f7f4', shipLength);
   })
   

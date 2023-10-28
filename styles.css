@@ -44,6 +44,18 @@ body {
   border: 1px solid lightgray;
 }
 
+.round-dot {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  pointer-events: none;
+  height: 15px;
+  width: 15px;
+  background-color: rgb(176, 199, 206);
+  border-radius: 50%;
+  z-index: 20;
+}
+
 .ships-container {
   /* display: none; battle started */
   position: relative;
