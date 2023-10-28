@@ -28,6 +28,7 @@ function startBattle (statusContainer) {
 
 function shipsReady () {
   const shipField = document.querySelectorAll('.field-ship');
+  const ships = document.querySelectorAll('.ships');
   const prepareCounter = document.getElementById('prepare-counter');
   const statusContainer = document.querySelector('.status-message');
 
@@ -37,6 +38,10 @@ function shipsReady () {
   }) 
   prepareCounter.textContent = `${shipsReady}/5`;
   if (shipsReady > 4) {
+    ships.forEach((ship) => {
+      ship.setAttribute('draggable', 'false');
+      ship.style.cursor = 'default';
+    });
     statusContainer.innerHTML = 'Entering battle...';
     statusContainer.style.backgroundColor = '#f4f7f4';
     setTimeout(() => {
@@ -143,3 +148,4 @@ function playerController () {
 }
 
 playerController();
+// startBattle();

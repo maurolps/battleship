@@ -19,10 +19,15 @@ body {
 }
 
 .computer-board {
+  cursor: crosshair;
   position: relative;
   width: 30px; 
   height: 30px;
   border: 1px solid lightgray;
+}
+
+.computer-board:hover {
+  background-color: #eeeeee;
 }
 
 .player-container{
@@ -45,54 +50,34 @@ body {
   width: 200px;
 }
 
-.ship-carrier {
-  cursor: pointer;
-  width: 160px;
+.ships {
   height: 30px;
+  cursor: pointer;
   position: absolute;
   opacity: 60%;
   bottom: 5%;
   z-index: 10;
+}
+
+.ship-carrier {
+  width: 160px;
+  height: 30px;
 }
 
 .ship-battleship {
-  cursor: pointer;
   width: 130px;
-  height: 30px;
-  position: absolute;
-  opacity: 60%;
-  bottom: 5%;
-  z-index: 10;
 }
 
 .ship-destroyer {
-  cursor: pointer;
   width: 100px;
-  height: 30px;
-  position: absolute;
-  opacity: 60%;
-  bottom: 5%;
-  z-index: 10;
 }
 
 .ship-submarine {
-  cursor: pointer;
   width: 100px;
-  height: 30px;
-  position: absolute;
-  opacity: 60%;
-  bottom: 5%;
-  z-index: 10;
 }
 
 .ship-patrol {
-  cursor: pointer;
   width: 70px;
-  height: 30px;
-  position: absolute;
-  opacity: 60%;
-  bottom: 5%;
-  z-index: 10;
 }
 
 
