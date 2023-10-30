@@ -21,6 +21,34 @@ const Gameboard = () => {
     } 
   }
 
+  const validPlace = (x, y, length, vertical = false) => {
+    if (vertical) {
+      if (x+length > 10) {
+        return false;  
+      }
+    } else {
+      if (y+length > 10) {
+        return false;
+      }
+    }
+
+    for (let i = 0; i < length; i++) {
+      if (vertical) {
+        if (board[x+i][y] !== 0) {
+          return false;
+        }
+      } else {
+        if (board[x][y+i] !== 0) { 
+          console.log (board[x][y+i])
+          return false;
+        }
+      }
+    
+    }
+    
+    return true;
+  }
+
   const placeShip = ( x, y, length) => {
     const newShip = Ship(length);
     board[x][y] = newShip;
@@ -30,27 +58,20 @@ const Gameboard = () => {
 
   const placeShipRandom = (length) => {
     const newShip = Ship(length);
-    let vertical = false;
 
-    const x = Math.floor(Math.random()*10);  
-    
-    const y = Math.floor(Math.random()*10);
+    const x = Math.floor(Math.random()*10);
+    const y = Math.floor(Math.random()*10);    
+    const vertical = Math.random() < 0.5;      
 
+    if (!validPlace(x, y, length, vertical)) {
+      placeShipRandom(length);
+      return;
+    }
     for (let i = 0; i < length; i++) {
       if (vertical) {
-        if (x+length > 10) {
-          console.log ('Reached Limits on Y Axis: ', x+i, y);
-          return;
-        }
         board[x+i][y] = newShip;
-        console.log('Placed Ship on Y Axis: ', x+i, y);
       } else {
-        if (y+length > 10) {
-          console.log ('Reached Limits on X Axis: ', x, y+i);
-          return;
-        }
         board[x][y+i] = newShip;
-        console.log('Placed Ship on X Axis: ', x, y+i);
       }
     }
   
@@ -95,8 +116,8 @@ const Player = (name) => {
 
 
  placeShip( 3, 3, 3);
-//  if (playerName === 'Computer')
-//  placeShipRandom(4);
+ if (playerName === 'Computer')
+ placeShipRandom(4);
 
 
  return { attack, receiveAttack, playerName}
