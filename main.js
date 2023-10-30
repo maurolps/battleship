@@ -114,20 +114,16 @@ const Player = (name) => {
   board.placeShipRandom (length);
  }
 
-
- placeShip( 3, 3, 3);
- if (playerName === 'Computer')
- placeShipRandom(4);
-
-
- return { attack, receiveAttack, playerName}
+ return { attack, receiveAttack, placeShip, placeShipRandom, playerName}
 }
 
 const player = Player('Player 1');
 const computer = Player('Computer');
+player.placeShip( 3, 3, 3);
+computer.placeShipRandom(4);
 
 
-player.attack(computer, 3, 3); // hit!
+console.log(computer.attack(player, 3, 3)); // hit!
 
 
 
