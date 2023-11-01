@@ -72,8 +72,7 @@ const Gameboard = () => {
     const vertical = Math.random() < 0.5;      
 
     if (!validPlace(x, y, length, vertical)) {
-      placeShipRandom(length);
-      return;
+      return placeShipRandom(length);
     }
 
     const newShip = Ship(length);
@@ -84,6 +83,8 @@ const Gameboard = () => {
         board[x][y+i] = newShip;
       }
     }
+
+    return { x, y, vertical }
   
   }
 
@@ -121,20 +122,11 @@ export const Player = (name) => {
  }
 
  const placeShipRandom = ( length ) => {
-  board.placeShipRandom (length);
+  return board.placeShipRandom (length);
  }
 
  return { attack, receiveAttack, placeShip, placeShipRandom, playerName}
 }
-
-// const player = Player('Player 1');
-// const computer = Player('Computer');
-// console.log(player.placeShip( 3, 3, 3));
-// computer.placeShipRandom(4);
-
-
-// console.log(computer.attack(player, 3, 3)); // hit!
-
 
 
 

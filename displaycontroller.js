@@ -34,12 +34,28 @@ function playerAttack (x, y) {
 }
 
 function placeComputerShips() {
-  computer.placeShip( 3, 3, 3);
-  const x = 3;
-  const y = 3;
-  const submarine = document.getElementById('cSubmarine');
-  const cell = document.getElementById('c'+x+y);
-  cell.appendChild(submarine);
+  const ships = [
+    {id: "cCarrier", length: 5},
+    {id: "cBattleship", length: 4},
+    {id: "cDestroyer", length: 3},
+    {id: "cSubmarine", length: 3},
+    {id: "cPatrol", length: 2}
+  ]
+
+  ships.forEach((ship) => {
+    console.log(ship);
+    console.log(ship.length);
+    console.log(ship.id);
+    const { x, y, vertical } = computer.placeShipRandom(ship.length);
+    const shipImg = document.getElementById(ship.id);
+    if (vertical) {
+      shipImg.style.transformOrigin = '10% 70%';
+      shipImg.style.transform = 'rotate(90deg)';
+    }
+    const cell = document.getElementById('c'+x+y);
+    cell.appendChild(shipImg);
+  })
+
 }
 
 function boardRender(container, className, id) {
