@@ -3,6 +3,12 @@ import { Player } from "./main.js";
 const computer = Player('Computer');
 const player = Player('Player');
 
+function statusMessage(message, color = '#f4f7f4') {
+  const statusContainer = document.querySelector('.status-message');
+  statusContainer.innerHTML = message;
+  statusContainer.style.backgroundColor = color;
+}
+
 function playerAttack (x, y) {
   const pAttack = player.attack(computer, x, y);
   if (pAttack === 'Invalid target') return;
@@ -10,14 +16,19 @@ function playerAttack (x, y) {
   const roundDot = document.getElementById('cdot'+x+y); 
   if (pAttack === 'miss') {
     roundDot.classList.toggle('hide');
+    statusMessage('Miss');
   } else 
   if (pAttack === 'hit!') {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
+    statusMessage('Hit!', 'lightblue');
   } else 
-  if (pAttack === 'destroyed') {
-    // roundDot.classList.toggle('hide');
+  if (pAttack === 'destroyed!') {
+    roundDot.classList.toggle('hide');
+    roundDot.classList.add('dot-hit');
+    statusMessage('Ship destroyed!', 'red');
   }
+  console.log(pAttack);
 
 }
 
@@ -51,7 +62,7 @@ function boardRender(container, className, id) {
   }
 }
 
-function startBattle (statusContainer) {
+function startBattle () {
   const shipsContainer = document.querySelector('.ships-container');
   const computerContainer = document.querySelector('.computer-container');
   const wrapper = document.querySelector('.wrapper');
@@ -62,14 +73,13 @@ function startBattle (statusContainer) {
   wrapper.style.gap = '50px';
 
   boardRender(computerContainer, 'computer-board', 'c');
-  statusContainer.innerHTML = 'Ready to fire!';
+  statusMessage('Ready to fire!');
 }
 
 function shipsReady () {
   const shipField = document.querySelectorAll('.field-ship');
   const ships = document.querySelectorAll('.ships');
   const prepareCounter = document.getElementById('prepare-counter');
-  const statusContainer = document.querySelector('.status-message');
 
   let shipsReady = 0;
   shipField.forEach((field) => {
@@ -81,10 +91,9 @@ function shipsReady () {
       ship.setAttribute('draggable', 'false');
       ship.style.cursor = 'default';
     });
-    statusContainer.innerHTML = 'Entering battle...';
-    statusContainer.style.backgroundColor = '#f4f7f4';
+    statusMessage('Entering battle... ', '#f4f7f4');
     setTimeout(() => {
-      startBattle(statusContainer);
+      startBattle();
     }, 2000);
   }
 }
