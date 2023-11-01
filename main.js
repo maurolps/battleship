@@ -92,8 +92,8 @@ const Gameboard = () => {
     if (target === 1) return 'Invalid target';
     if (typeof(target) == 'object') {
       target.hit();
-      if (target.isSunk()) return 'destroyed!';
-      return 'hit!';
+      if (target.isSunk()) return 'destroyed';
+      return 'hit';
     } else {
       board[x][y] = 1;
       return 'miss';

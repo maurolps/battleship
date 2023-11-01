@@ -12,24 +12,34 @@ function statusMessage(message, color = '#f4f7f4') {
 function playerAttack (x, y) {
   const pAttack = player.attack(computer, x, y);
   if (pAttack === 'Invalid target') return;
-
+  
   const roundDot = document.getElementById('cdot'+x+y); 
+  roundDot.parentElement.style.pointerEvents = 'none';
+
   if (pAttack === 'miss') {
     roundDot.classList.toggle('hide');
     statusMessage('Miss');
   } else 
-  if (pAttack === 'hit!') {
+  if (pAttack === 'hit') {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
     statusMessage('Hit!', 'lightblue');
   } else 
-  if (pAttack === 'destroyed!') {
+  if (pAttack === 'destroyed') {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
     statusMessage('Ship destroyed!', 'red');
   }
-  console.log(pAttack);
 
+}
+
+function placeComputerShips() {
+  computer.placeShip( 3, 3, 3);
+  const x = 3;
+  const y = 3;
+  const submarine = document.getElementById('cSubmarine');
+  const cell = document.getElementById('c'+x+y);
+  cell.appendChild(submarine);
 }
 
 function boardRender(container, className, id) {
@@ -51,10 +61,10 @@ function boardRender(container, className, id) {
     }    
   }
   if (className === 'computer-board')  {
-    // add computer ships
-    console.log(computer.placeShip( 3, 3, 3));
+    placeComputerShips();
     
     container.addEventListener('click', (e) => {
+      if (e.target.className !== 'computer-board') return;
       const cellX = e.target.dataset.x;
       const cellY = e.target.dataset.y;
       playerAttack(cellX, cellY);
