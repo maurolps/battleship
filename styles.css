@@ -56,6 +56,10 @@ body {
   z-index: 20;
 }
 
+.dot-hit {
+  background-color: red;
+}
+
 .ships-container {
   /* display: none; battle started */
   position: relative;

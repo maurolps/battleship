@@ -1,3 +1,26 @@
+import { Player } from "./main.js";
+
+const computer = Player('Computer');
+const player = Player('Player');
+
+function playerAttack (x, y) {
+  const pAttack = player.attack(computer, x, y);
+  if (pAttack === 'Invalid target') return;
+
+  const roundDot = document.getElementById('cdot'+x+y); 
+  if (pAttack === 'miss') {
+    roundDot.classList.toggle('hide');
+  } else 
+  if (pAttack === 'hit!') {
+    roundDot.classList.toggle('hide');
+    roundDot.classList.add('dot-hit');
+  } else 
+  if (pAttack === 'destroyed') {
+    // roundDot.classList.toggle('hide');
+  }
+
+}
+
 function boardRender(container, className, id) {
 
   for (let i = 0; i < 10; i++) {
@@ -17,12 +40,13 @@ function boardRender(container, className, id) {
     }    
   }
   if (className === 'computer-board')  {
+    // add computer ships
+    console.log(computer.placeShip( 3, 3, 3));
+    
     container.addEventListener('click', (e) => {
       const cellX = e.target.dataset.x;
       const cellY = e.target.dataset.y;
-      const roundDot = document.getElementById(id+'dot'+cellX+cellY);
-      if (roundDot !== null)
-      roundDot.classList.toggle('hide');
+      playerAttack(cellX, cellY);
     })
   }
 }
@@ -164,4 +188,3 @@ function playerController () {
 }
 
 playerController();
-// startBattle();
