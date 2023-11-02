@@ -9,13 +9,48 @@ function statusMessage(message, color = '#f4f7f4') {
   statusContainer.style.backgroundColor = color;
 }
 
+function computerAttack () {
+  const x = Math.floor(Math.random()*10);
+  const y = Math.floor(Math.random()*10);  
+
+  const cAttack = computer.attack(player, x, y);
+  if (cAttack === 'Invalid target') {
+    console.log('computer failed to attack ', x, y);
+    computerAttack();
+    return;
+  }
+
+  const roundDot = document.getElementById('pdot'+x+y); 
+
+  if (cAttack === 'miss') {
+    roundDot.classList.toggle('hide');
+    statusMessage('Miss');
+  } else 
+  if (cAttack === 'hit') {
+    roundDot.classList.toggle('hide');
+    roundDot.classList.add('dot-hit');
+    statusMessage('Hit!', 'lightblue');
+  } else  
+  if (typeof(cAttack) == 'object') {
+    roundDot.classList.toggle('hide');
+    roundDot.classList.add('dot-hit');
+    const destroyedShip = document.getElementById(pAttack.getId());
+    destroyedShip.classList.toggle('hide');
+    statusMessage('Ship destroyed!', 'red');
+
+  }
+
+}
+
 function playerAttack (x, y) {
   const pAttack = player.attack(computer, x, y);
   if (pAttack === 'Invalid target') return;
   
   const roundDot = document.getElementById('cdot'+x+y); 
   roundDot.parentElement.style.pointerEvents = 'none';
-
+  setTimeout(() => {
+    computerAttack();
+  }, 1000);
   if (pAttack === 'miss') {
     roundDot.classList.toggle('hide');
     statusMessage('Miss');
@@ -28,7 +63,6 @@ function playerAttack (x, y) {
   if (typeof(pAttack) == 'object') {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
-    console.log(pAttack.getId());
     const destroyedShip = document.getElementById(pAttack.getId());
     destroyedShip.classList.toggle('hide');
     statusMessage('Ship destroyed!', 'red');
