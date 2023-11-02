@@ -24,11 +24,15 @@ function playerAttack (x, y) {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
     statusMessage('Hit!', 'lightblue');
-  } else 
-  if (pAttack === 'destroyed') {
+  } else  
+  if (typeof(pAttack) == 'object') {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
+    console.log(pAttack.getId());
+    const destroyedShip = document.getElementById(pAttack.getId());
+    destroyedShip.classList.toggle('hide');
     statusMessage('Ship destroyed!', 'red');
+
   }
 
 }
@@ -43,10 +47,7 @@ function placeComputerShips() {
   ]
 
   ships.forEach((ship) => {
-    console.log(ship);
-    console.log(ship.length);
-    console.log(ship.id);
-    const { x, y, vertical } = computer.placeShipRandom(ship.length);
+    const { x, y, vertical } = computer.placeShipRandom(ship.length, ship.id);
     const shipImg = document.getElementById(ship.id);
     if (vertical) {
       shipImg.style.transformOrigin = '10% 70%';

@@ -1,14 +1,15 @@
-const Ship = (length) => {
+const Ship = (length, id = 'ship') => {
   let hits = 0;
 
   const hit = () => {
     hits += 1;
-    hits
   }
+
+  const getId = () => id;
 
   const isSunk = () => hits >= length;
 
-  return { hit, isSunk }
+  return { hit, isSunk, getId }
 }
 
 const Gameboard = () => {
@@ -66,16 +67,16 @@ const Gameboard = () => {
     return true;
   }
 
-  const placeShipRandom = (length) => {
+  const placeShipRandom = (length, id) => {
     const x = Math.floor(Math.random()*10);
     const y = Math.floor(Math.random()*10);    
     const vertical = Math.random() < 0.5;      
 
     if (!validPlace(x, y, length, vertical)) {
-      return placeShipRandom(length);
+      return placeShipRandom(length, id);
     }
 
-    const newShip = Ship(length);
+    const newShip = Ship(length, id);
     for (let i = 0; i < length; i++) {
       if (vertical) {
         board[x+i][y] = newShip;
@@ -93,7 +94,7 @@ const Gameboard = () => {
     if (target === 1) return 'Invalid target';
     if (typeof(target) == 'object') {
       target.hit();
-      if (target.isSunk()) return 'destroyed';
+      if (target.isSunk()) return target;
       return 'hit';
     } else {
       board[x][y] = 1;
@@ -121,8 +122,8 @@ export const Player = (name) => {
   return board.placeShip (x, y, length, vertical);
  }
 
- const placeShipRandom = ( length ) => {
-  return board.placeShipRandom (length);
+ const placeShipRandom = ( length, id ) => {
+  return board.placeShipRandom (length, id);
  }
 
  return { attack, receiveAttack, placeShip, placeShipRandom, playerName}
