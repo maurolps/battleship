@@ -12,33 +12,38 @@ function statusMessage(message, color = '#f4f7f4') {
 function computerAttack () {
   const x = Math.floor(Math.random()*10);
   const y = Math.floor(Math.random()*10);  
-
+  
   const cAttack = computer.attack(player, x, y);
   if (cAttack === 'Invalid target') {
-    console.log('computer failed to attack ', x, y);
     computerAttack();
     return;
   }
-
+  
+  const computerContainer = document.querySelector('.computer-container');
   const roundDot = document.getElementById('pdot'+x+y); 
 
   if (cAttack === 'miss') {
     roundDot.classList.toggle('hide');
-    statusMessage('Miss');
+    // statusMessage('Miss');
   } else 
   if (cAttack === 'hit') {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
-    statusMessage('Hit!', 'lightblue');
+    // statusMessage('Hit!', 'lightblue');
   } else  
   if (typeof(cAttack) == 'object') {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
-    const destroyedShip = document.getElementById(pAttack.getId());
+    const destroyedShip = document.getElementById(cAttack.getId());
     destroyedShip.classList.toggle('hide');
-    statusMessage('Ship destroyed!', 'red');
+    // statusMessage('Ship destroyed!', 'red');
 
   }
+
+  setTimeout(() => {
+    computerContainer.style.pointerEvents = 'auto';
+    statusMessage('Your turn!');
+  }, 1000);
 
 }
 
@@ -46,11 +51,10 @@ function playerAttack (x, y) {
   const pAttack = player.attack(computer, x, y);
   if (pAttack === 'Invalid target') return;
   
+  const computerContainer = document.querySelector('.computer-container');
   const roundDot = document.getElementById('cdot'+x+y); 
   roundDot.parentElement.style.pointerEvents = 'none';
-  setTimeout(() => {
-    computerAttack();
-  }, 1000);
+
   if (pAttack === 'miss') {
     roundDot.classList.toggle('hide');
     statusMessage('Miss');
@@ -59,6 +63,11 @@ function playerAttack (x, y) {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
     statusMessage('Hit!', 'lightblue');
+    setTimeout(() => {
+      computerContainer.style.pointerEvents = 'auto';
+      statusMessage('Your Turn');
+    }, 1000);
+    return;
   } else  
   if (typeof(pAttack) == 'object') {
     roundDot.classList.toggle('hide');
@@ -66,9 +75,16 @@ function playerAttack (x, y) {
     const destroyedShip = document.getElementById(pAttack.getId());
     destroyedShip.classList.toggle('hide');
     statusMessage('Ship destroyed!', 'red');
+    setTimeout(() => {
+      computerContainer.style.pointerEvents = 'auto';
+      statusMessage('Your Turn');
+    }, 1000);
+    return;
 
   }
-
+  setTimeout(() => {
+    computerAttack();
+  }, 500);
 }
 
 function placeComputerShips() {
@@ -118,6 +134,7 @@ function boardRender(container, className, id) {
       if (e.target.className !== 'computer-board') return;
       const cellX = e.target.dataset.x;
       const cellY = e.target.dataset.y;
+      container.style.pointerEvents = 'none';
       playerAttack(cellX, cellY);
     })
   }
