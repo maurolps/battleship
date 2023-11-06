@@ -24,20 +24,17 @@ function computerAttack () {
 
   if (cAttack === 'miss') {
     roundDot.classList.toggle('hide');
-    // statusMessage('Miss');
   } else 
   if (cAttack === 'hit') {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
-    // statusMessage('Hit!', 'lightblue');
+    console.log('Computer hit!');
   } else  
   if (typeof(cAttack) == 'object') {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
     const destroyedShip = document.getElementById(cAttack.getId());
     destroyedShip.classList.toggle('hide');
-    // statusMessage('Ship destroyed!', 'red');
-
   }
 
   setTimeout(() => {
@@ -156,7 +153,7 @@ function startBattle () {
 
 function shipsReady () {
   const shipField = document.querySelectorAll('.field-ship');
-  const ships = document.querySelectorAll('.ships');
+  const ships = document.querySelectorAll('.js-ships');
   const prepareCounter = document.getElementById('prepare-counter');
 
   let shipsReady = 0;
@@ -166,8 +163,13 @@ function shipsReady () {
   prepareCounter.textContent = `${shipsReady}/5`;
   if (shipsReady > 4) {
     ships.forEach((ship) => {
+      const x = parseInt(ship.dataset.x);
+      const y = parseInt(ship.dataset.y);
+      const vertical = (ship.dataset.vertical === 'true');
+      const length = parseInt(ship.dataset.length);
       ship.setAttribute('draggable', 'false');
       ship.style.cursor = 'default';
+      player.placeShip(x, y, length, vertical);
     });
     statusMessage('Entering battle... ', '#f4f7f4');
     setTimeout(() => {
@@ -252,6 +254,10 @@ function playerController () {
       ship.style.transformOrigin = '';
       ship.style.transform = '';
     }
+    ship.dataset.x = cellX;
+    ship.dataset.y = cellY;
+    ship.dataset.vertical = verticalAxis;
+    ship.dataset.length = shipLength;
     cell.appendChild(ship); 
     shipsReady();
   })
