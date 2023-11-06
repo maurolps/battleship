@@ -49,13 +49,13 @@ const Gameboard = () => {
     return true;
   }
 
-  const placeShip = ( x, y, length, vertical = false) => {
+  const placeShip = ( x, y, length, vertical = false, id) => {
 
     if (!validPlace(x, y, length, vertical)) {
       return false;
     }
 
-    const newShip = Ship(length);
+    const newShip = Ship(length, id);
     for (let i = 0; i < length; i++) {
       if (vertical) {
         board[x+i][y] = newShip;
@@ -118,8 +118,8 @@ export const Player = (name) => {
   return board.receiveAttack(x, y);
  }
 
- const placeShip = ( x, y , length, vertical = false) => {
-  return board.placeShip (x, y, length, vertical);
+ const placeShip = ( x, y , length, vertical = false, id) => {
+  return board.placeShip (x, y, length, vertical, id);
  }
 
  const placeShipRandom = ( length, id ) => {

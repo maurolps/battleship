@@ -3,7 +3,7 @@ import { Player } from "./main.js";
 const computer = Player('Computer');
 const player = Player('Player');
 
-function statusMessage(message, color = '#f4f7f4') {
+function statusMessage(message, color = '#e1fde1') {
   const statusContainer = document.querySelector('.status-message');
   statusContainer.innerHTML = message;
   statusContainer.style.backgroundColor = color;
@@ -13,6 +13,12 @@ function computerAttack () {
   const x = Math.floor(Math.random()*10);
   const y = Math.floor(Math.random()*10);  
   
+  const roundDot = document.getElementById('pdot'+x+y); 
+  if (!roundDot.classList.contains('hide')) {
+    computerAttack();
+    return;
+  }
+  
   const cAttack = computer.attack(player, x, y);
   if (cAttack === 'Invalid target') {
     computerAttack();
@@ -20,7 +26,6 @@ function computerAttack () {
   }
   
   const computerContainer = document.querySelector('.computer-container');
-  const roundDot = document.getElementById('pdot'+x+y); 
 
   if (cAttack === 'miss') {
     roundDot.classList.toggle('hide');
@@ -28,13 +33,20 @@ function computerAttack () {
   if (cAttack === 'hit') {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
-    console.log('Computer hit!');
+    setTimeout(() => {
+      computerAttack();
+    }, 1000);
+    return;
   } else  
   if (typeof(cAttack) == 'object') {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
     const destroyedShip = document.getElementById(cAttack.getId());
     destroyedShip.classList.toggle('hide');
+    setTimeout(() => {
+      computerAttack();
+    }, 1000);
+    return;
   }
 
   setTimeout(() => {
@@ -59,7 +71,7 @@ function playerAttack (x, y) {
   if (pAttack === 'hit') {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
-    statusMessage('Hit!', 'lightblue');
+    statusMessage('Hit!', 'lightgreen');
     setTimeout(() => {
       computerContainer.style.pointerEvents = 'auto';
       statusMessage('Your Turn');
@@ -71,7 +83,7 @@ function playerAttack (x, y) {
     roundDot.classList.add('dot-hit');
     const destroyedShip = document.getElementById(pAttack.getId());
     destroyedShip.classList.toggle('hide');
-    statusMessage('Ship destroyed!', 'red');
+    statusMessage('Ship destroyed!', '#ff7f7f');
     setTimeout(() => {
       computerContainer.style.pointerEvents = 'auto';
       statusMessage('Your Turn');
@@ -80,6 +92,7 @@ function playerAttack (x, y) {
 
   }
   setTimeout(() => {
+    statusMessage('Your opponent is attacking...', '#f0cccc');
     computerAttack();
   }, 500);
 }
@@ -169,7 +182,7 @@ function shipsReady () {
       const length = parseInt(ship.dataset.length);
       ship.setAttribute('draggable', 'false');
       ship.style.cursor = 'default';
-      player.placeShip(x, y, length, vertical);
+      player.placeShip(x, y, length, vertical, ship.id);
     });
     statusMessage('Entering battle... ', '#f4f7f4');
     setTimeout(() => {
