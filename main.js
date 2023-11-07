@@ -102,8 +102,13 @@ const Gameboard = () => {
     }
   }
 
+  const isShipSunk = ( x, y) => {
+    const ship = board[x][y];
+    return ship.isSunk();
+   }
 
-  return { board, receiveAttack, placeShip, placeShipRandom }
+
+  return { isShipSunk, receiveAttack, placeShip, placeShipRandom }
 }
 
 export const Player = (name) => {
@@ -126,7 +131,11 @@ export const Player = (name) => {
   return board.placeShipRandom (length, id);
  }
 
- return { attack, receiveAttack, placeShip, placeShipRandom, playerName}
+ const isShipSunk = ( x, y) => {
+  return board.isShipSunk( x, y);
+ }
+
+ return { isShipSunk, attack, receiveAttack, placeShip, placeShipRandom, playerName}
 }
 
 

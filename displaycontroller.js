@@ -47,6 +47,7 @@ function computerAttack () {
     destroyedShip.classList.add('ship-destroyed');
     statusMessage('Ship destroyed!', 'red');
     setTimeout(() => {
+      if (checkGameOver(player)) return;
       computerAttack();
     }, 1000);
     return;
@@ -57,6 +58,30 @@ function computerAttack () {
     statusMessage('Your turn!');
   }, 1000);
 
+}
+
+function checkGameOver (loser = computer) {
+  let shipsSelector = '.c-ship';
+  let shipsDestroyed = 0;
+
+  if (loser !== computer) shipsSelector = '.js-ships';
+
+  const computerShips = document.querySelectorAll(shipsSelector);
+  computerShips.forEach((ship) => {
+    const x = parseInt(ship.dataset.x);
+    const y = parseInt(ship.dataset.y);
+    if(loser.isShipSunk( x, y)) shipsDestroyed += 1;
+  })
+  if (shipsDestroyed > 4) {
+    if (loser === computer) {
+      statusMessage('You Win!', 'lightgreen');
+      return true;
+    }
+    else {
+      statusMessage('You Lose!', '#ff7f7f');
+      return true;
+    }
+  }
 }
 
 function playerAttack (x, y) {
@@ -89,6 +114,7 @@ function playerAttack (x, y) {
     destroyedShip.classList.add('ship-destroyed');
     statusMessage('Ship destroyed!', '#ff7f7f');
     setTimeout(() => {
+      if (checkGameOver()) return;
       computerContainer.style.pointerEvents = 'auto';
       statusMessage('Your Turn');
     }, 1000);
@@ -117,6 +143,8 @@ function placeComputerShips() {
       shipImg.style.transform = 'rotate(90deg)';
       shipImg.classList.add('ships-v');
     }
+    shipImg.dataset.x = x;
+    shipImg.dataset.y = y;
     const cell = document.getElementById('c'+x+y);
     cell.appendChild(shipImg);
   })
