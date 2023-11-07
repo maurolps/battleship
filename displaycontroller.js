@@ -29,10 +29,12 @@ function computerAttack () {
 
   if (cAttack === 'miss') {
     roundDot.classList.toggle('hide');
+    statusMessage('Miss', '#f0cccc');
   } else 
   if (cAttack === 'hit') {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
+    statusMessage('Hit!', '#fa5757');
     setTimeout(() => {
       computerAttack();
     }, 1000);
@@ -43,6 +45,7 @@ function computerAttack () {
     roundDot.classList.add('dot-hit');
     const destroyedShip = document.getElementById(cAttack.getId());
     destroyedShip.classList.toggle('hide');
+    statusMessage('Ship destroyed!', 'red');
     setTimeout(() => {
       computerAttack();
     }, 1000);
@@ -92,7 +95,6 @@ function playerAttack (x, y) {
 
   }
   setTimeout(() => {
-    statusMessage('Your opponent is attacking...', '#f0cccc');
     computerAttack();
   }, 500);
 }
