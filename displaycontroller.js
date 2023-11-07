@@ -44,7 +44,7 @@ function computerAttack () {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
     const destroyedShip = document.getElementById(cAttack.getId());
-    destroyedShip.classList.toggle('hide');
+    destroyedShip.classList.add('ship-destroyed');
     statusMessage('Ship destroyed!', 'red');
     setTimeout(() => {
       computerAttack();
@@ -85,7 +85,8 @@ function playerAttack (x, y) {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
     const destroyedShip = document.getElementById(pAttack.getId());
-    destroyedShip.classList.toggle('hide');
+    // destroyedShip.classList.toggle('hide');
+    destroyedShip.classList.add('ship-destroyed');
     statusMessage('Ship destroyed!', '#ff7f7f');
     setTimeout(() => {
       computerContainer.style.pointerEvents = 'auto';
@@ -114,6 +115,7 @@ function placeComputerShips() {
     if (vertical) {
       shipImg.style.transformOrigin = '10% 70%';
       shipImg.style.transform = 'rotate(90deg)';
+      shipImg.classList.add('ships-v');
     }
     const cell = document.getElementById('c'+x+y);
     cell.appendChild(shipImg);
@@ -261,6 +263,7 @@ function playerController () {
       };
       ship.style.transformOrigin = '10% 70%';
       ship.style.transform = 'rotate(90deg)';
+      ship.classList.add('ships-v');
     } else {
       if (parseInt(cellY)+shipLength > 10) {
         cellColor(cell, 'white', shipLength, true);
@@ -268,6 +271,7 @@ function playerController () {
       };
       ship.style.transformOrigin = '';
       ship.style.transform = '';
+      ship.classList.remove('ships-v');
     }
     ship.dataset.x = cellX;
     ship.dataset.y = cellY;
