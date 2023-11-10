@@ -117,9 +117,17 @@ body {
   align-items: center;
 }
 
+.play-again {
+  margin-top: 14px;
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: center;  
+}
+
 .main-container {
   place-content: center;
   display: flex;
+  
 }
 
 .field {

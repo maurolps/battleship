@@ -73,6 +73,11 @@ function checkGameOver (loser = computer) {
     if(loser.isShipSunk( x, y)) shipsDestroyed += 1;
   })
   if (shipsDestroyed > 4) {
+    const playAgain = document.querySelector('.play-again');
+    playAgain.classList.toggle('hide');
+    playAgain.addEventListener('click', () => {
+      location.reload();
+    })
     if (loser === computer) {
       statusMessage('You Win!', 'lightgreen');
       return true;
