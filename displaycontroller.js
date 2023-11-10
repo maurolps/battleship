@@ -115,7 +115,7 @@ function playerAttack (x, y) {
     roundDot.classList.toggle('hide');
     roundDot.classList.add('dot-hit');
     const destroyedShip = document.getElementById(pAttack.getId());
-    // destroyedShip.classList.toggle('hide');
+    destroyedShip.classList.toggle('hide');
     destroyedShip.classList.add('ship-destroyed');
     statusMessage('Ship destroyed!', '#ff7f7f');
     setTimeout(() => {

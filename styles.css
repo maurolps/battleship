@@ -125,6 +125,8 @@ body {
 }
 
 .github {
+  margin-top: 5px;
+  margin-bottom: 14px;
   font-size: 0.6rem;
   display: flex;
   gap: 3px;
