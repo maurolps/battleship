@@ -124,6 +124,13 @@ body {
   justify-content: center;  
 }
 
+.github {
+  font-size: 0.6rem;
+  display: flex;
+  gap: 3px;
+  place-content: center;
+}
+
 .main-container {
   place-content: center;
   display: flex;

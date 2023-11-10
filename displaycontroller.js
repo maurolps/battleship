@@ -272,18 +272,20 @@ function playerController () {
       neighbor.style.backgroundColor = cellColor;
     }
     cell.style.backgroundColor = cellColor;
-  
+  }
+
+  function dragOver (e) {
+    const cell = e.target;
+    if (cell.className !== 'round-dot')
+    cellColor(cell, '#f4f7f4', shipLength);
   }
   
   playerContainer.addEventListener('dragover', (e) => {
     e.preventDefault();
-    const cell = e.target;
-    if (cell.className !== 'round-dot')
-    cellColor(cell, '#f4f7f4', shipLength);
+    dragOver(e);
   })
   
-  playerContainer.addEventListener('drop', (e) => {
-    e.preventDefault();
+  function dragDrop (e) {
     const cell = e.target;
     const cellX = cell.dataset.x;
     const cellY = cell.dataset.y;
@@ -312,14 +314,21 @@ function playerController () {
     ship.dataset.length = shipLength;
     cell.appendChild(ship); 
     shipsReady();
+  }
+
+  playerContainer.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dragDrop(e);
   })
   
-  
-  playerContainer.addEventListener('dragleave', (e) => {
-    e.preventDefault();
+  function dragLeave (e) {
     const cell = e.target;
     cellColor(cell, 'white', shipLength, true);
-  
+  }
+
+  playerContainer.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    dragLeave(e);
   })
 
   
