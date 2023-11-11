@@ -196,7 +196,6 @@ function shipsReady() {
   const shipField = document.querySelectorAll(".field-ship");
   const ships = document.querySelectorAll(".js-ships");
   const prepareCounter = document.getElementById("prepare-counter");
-
   let shipsReady = 0;
   shipField.forEach((field) => {
     if (field.firstChild == null) shipsReady += 1;
