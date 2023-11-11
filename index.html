@@ -1,48 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500&family=Montserrat:wght@700&family=Open+Sans:wght@300&family=Roboto&family=Roboto+Condensed&family=Roboto+Slab&family=Squada+One&family=Stardos+Stencil:wght@700&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500&family=Montserrat:wght@700&family=Open+Sans:wght@300&family=Roboto&family=Roboto+Condensed&family=Roboto+Slab&family=Squada+One&family=Stardos+Stencil:wght@700&display=swap" rel="stylesheet">
-  <script type="module" src="displaycontroller.js"></script>
-  <title>Battleship</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@500&family=Montserrat:wght@700&family=Open+Sans:wght@300&family=Roboto&family=Roboto+Condensed&family=Roboto+Slab&family=Squada+One&family=Stardos+Stencil:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@500&family=Montserrat:wght@700&family=Open+Sans:wght@300&family=Roboto&family=Roboto+Condensed&family=Roboto+Slab&family=Squada+One&family=Stardos+Stencil:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" src="displaycontroller.js"></script>
+    <title>Battleship</title>
+  </head>
+  <body>
     <div class="main-title"><p>BATTLESHIP</p></div>
-    <div class="status-message">Prepare your Ships <span id="prepare-counter">0/5</span></div>
+    <div class="status-message">
+      Prepare your Ships <span id="prepare-counter">0/5</span>
+    </div>
     <div class="main-container">
       <div class="ships-container">
         <fieldset class="field">
           <legend class="field-legend">Carrier</legend>
-          <div class="field-ship"><img id="carrier" src="./assets/carrier.png" draggable="true" class="ship-carrier ships js-ships"></div>
+          <div class="field-ship">
+            <img
+              id="carrier"
+              src="./assets/carrier.png"
+              draggable="true"
+              class="ship-carrier ships js-ships"
+            />
+          </div>
         </fieldset>
         <fieldset class="field">
           <legend class="field-legend">Battleship</legend>
-          <div class="field-ship"><img id="battleship" src="./assets/battleship.png" draggable="true" class="ship-battleship ships js-ships"></div>
+          <div class="field-ship">
+            <img
+              id="battleship"
+              src="./assets/battleship.png"
+              draggable="true"
+              class="ship-battleship ships js-ships"
+            />
+          </div>
         </fieldset>
         <fieldset class="field">
           <legend class="field-legend">Destroyer</legend>
-          <div class="field-ship"><img id="destroyer" src="./assets/destroyer.png" draggable="true" class="ship-destroyer ships js-ships"></div>
+          <div class="field-ship">
+            <img
+              id="destroyer"
+              src="./assets/destroyer.png"
+              draggable="true"
+              class="ship-destroyer ships js-ships"
+            />
+          </div>
         </fieldset>
         <fieldset class="field">
           <legend class="field-legend">Submarine</legend>
-          <div class="field-ship"><img id="submarine" src="./assets/submarine.png" draggable="true" class="ship-submarine ships js-ships"></div>
+          <div class="field-ship">
+            <img
+              id="submarine"
+              src="./assets/submarine.png"
+              draggable="true"
+              class="ship-submarine ships js-ships"
+            />
+          </div>
         </fieldset>
         <fieldset class="field">
           <legend class="field-legend">Patrol Boat</legend>
-          <div class="field-ship"><img id="patrol" src="./assets/patrol-boat.png" draggable="true" class="ship-patrol ships js-ships"></div>
+          <div class="field-ship">
+            <img
+              id="patrol"
+              src="./assets/patrol-boat.png"
+              draggable="true"
+              class="ship-patrol ships js-ships"
+            />
+          </div>
         </fieldset>
         <div class="orientation">
           <fieldset class="field">
             <legend class="field-legend">Axis</legend>
             <div class="radio">
-              <input type="radio" id="axis-x" name="drone" value="Axis X" checked />
+              <input
+                type="radio"
+                id="axis-x"
+                name="drone"
+                value="Axis X"
+                checked
+              />
               <label for="axis-x">X</label>
               <input type="radio" id="axis-y" name="drone" value="Axis Y" />
               <label for="axis-y">Y</label>
@@ -51,14 +100,33 @@
         </div>
       </div>
       <div class="wrapper">
-        <div class="player-container">
-        </div>
+        <div class="player-container"></div>
         <div class="computer-container">
-          <img id="cCarrier" src="./assets/carrier.png" class="ship-carrier ships c-ship hide">
-          <img id="cBattleship" src="./assets/battleship.png" class="ship-battleship ships c-ship hide">
-          <img id="cDestroyer" src="./assets/destroyer.png" class="ship-destroyer ships c-ship hide">
-          <img id="cSubmarine" src="./assets/submarine.png" class="ship-submarine ships c-ship hide">
-          <img id="cPatrol" src="./assets/patrol-boat.png" class="ship-patrol ships c-ship hide">
+          <img
+            id="cCarrier"
+            src="./assets/carrier.png"
+            class="ship-carrier ships c-ship hide"
+          />
+          <img
+            id="cBattleship"
+            src="./assets/battleship.png"
+            class="ship-battleship ships c-ship hide"
+          />
+          <img
+            id="cDestroyer"
+            src="./assets/destroyer.png"
+            class="ship-destroyer ships c-ship hide"
+          />
+          <img
+            id="cSubmarine"
+            src="./assets/submarine.png"
+            class="ship-submarine ships c-ship hide"
+          />
+          <img
+            id="cPatrol"
+            src="./assets/patrol-boat.png"
+            class="ship-patrol ships c-ship hide"
+          />
         </div>
       </div>
     </div>
@@ -68,5 +136,5 @@
     <div class="github">
       Battleship on <a href="https://github.com/maurolps/battleship">github</a>
     </div>
-</body>
+  </body>
 </html>
